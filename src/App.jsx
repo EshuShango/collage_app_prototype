@@ -10,9 +10,16 @@ import { Exp } from "./components/canvas/exp";
 function App() {
   return (
     <BrowserRouter>
-      <Canvas shadows camera={{ position: [0, 0, 8], fov: 30 }}>
-        <Exp />
-      </Canvas>
+      <div className="relative bg-primary h-full">
+        <h1 className="text-center">Hello</h1>
+        <Canvas
+          shadows
+          camera={{ position: [0, 0, 8], fov: 75 }}
+          frameloop="demand"
+        >
+          <Exp />
+        </Canvas>
+      </div>
     </BrowserRouter>
   );
 }

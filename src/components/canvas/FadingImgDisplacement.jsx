@@ -65,7 +65,7 @@ export const FadingImgDisplacement = () => {
     
 
     
-    <Center top> 
+    <Center Center > 
     <mesh
       onPointerOver={(e) => setHover(true)}
       onPointerOut={(e) => setHover(false)}
