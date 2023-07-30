@@ -42,8 +42,9 @@ export const ImageFadeMaterial = shaderMaterial(
 // eslint-disable-next-line no-undef
 extend({ ImageFadeMaterial });
 
-export const FadingImgDisplacement = () => {
+export const FadingImgDisplacement = (props) => {
   const ref = useRef();
+  console.log(ref)
   const [texture1, texture2, dispTexture] = useTexture([
     // "../assets/textures/advent.jpg",
     // "../assets/textures/ancestors.jpg",
@@ -70,10 +71,13 @@ export const FadingImgDisplacement = () => {
       onPointerOver={(e) => setHover(true)}
       onPointerOut={(e) => setHover(false)}
       castShadow
+      {...props}
     >
       <boxGeometry
         // args={[2.25, 4]} // 9:16 ratio
         args={[2,2,2,2]} // 9:16 ratio
+
+        // wireframe={true}
       />
       <imageFadeMaterial
         ref={ref}

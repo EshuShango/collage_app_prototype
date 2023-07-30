@@ -13,19 +13,24 @@ import {
 export const Exp = () => {
   return (
     <>
-    
-    <Suspense fallback={null} >
-      <FadingImgDisplacement castshadow />
-      <OrbitControls
-        // autoRotate
-        // enableZoom
-        // autoRotateSpeed={3}
-        // enablePan={false}
-        minPolarAngle={Math.PI / 2.1}
-        maxPolarAngle={Math.PI / 2.1}
-      />
-   </Suspense>
+    <group>
 
+      <Suspense fallback={null}>
+        <FadingImgDisplacement castshadow position={[3.14, 0, 0]} name="A" />
+        <FadingImgDisplacement castshadow position={[-1.68, 0, 0]} name="B"/>
+        <OrbitControls
+          autoRotate
+          // enableZoom
+          // autoRotateSpeed={3}
+          enableDamping={true}
+          enablePan={false}
+          // minAzimuthAngle={-Math.PI / 6}
+          // maxAzimuthAngle={Math.PI / 6}
+          minPolarAngle={Math.PI / 3.14}
+          maxPolarAngle={Math.PI - Math.PI / 3.14}
+        />
+      </Suspense>
+    </group>
     </>
   );
 };
