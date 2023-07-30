@@ -1,9 +1,20 @@
-import { Center, shaderMaterial, useTexture } from "@react-three/drei";
+import {
+  Center,
+  shaderMaterial,
+  useTexture,
+  MeshPortalMaterial,
+  Text,
+} from "@react-three/drei";
 import { useFrame, extend } from "@react-three/fiber";
 import { useState } from "react";
 import { useRef } from "react";
+import { suspend } from "suspend-react";
+import { geometry } from "maath";
 import * as THREE from "three";
-
+extend(geometry);
+const GOLDENRATIO = 1.61803398875;
+const zPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+const yPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 1);
 
 export const ImageFadeMaterial = shaderMaterial(
   {
@@ -42,9 +53,18 @@ export const ImageFadeMaterial = shaderMaterial(
 // eslint-disable-next-line no-undef
 extend({ ImageFadeMaterial });
 
-export const FadingImgDisplacement = (props) => {
+export const FadingImgDisplacement = ({
+  id,
+  name,
+  author,
+  bg,
+  width = 1,
+  height = GOLDENRATIO,
+  children,
+  ...props
+}) => {
   const ref = useRef();
-  console.log(ref)
+  // console.log(ref);
   const [texture1, texture2, dispTexture] = useTexture([
     // "../assets/textures/advent.jpg",
     // "../assets/textures/ancestors.jpg",
@@ -63,32 +83,31 @@ export const FadingImgDisplacement = (props) => {
     );
   });
   return (
-    
-
-    
-    <Center Center > 
-    <mesh
-      onPointerOver={(e) => setHover(true)}
-      onPointerOut={(e) => setHover(false)}
-      castShadow
-      {...props}
-    >
-      <boxGeometry
+    // <Center Center>
+    <group {...props}>
+      <mesh
+        // {...props}
+        onPointerOver={(e) => setHover(true)}
+        onPointerOut={(e) => setHover(false)}
+        castShadow
+      >
+        <boxGeometry
         // args={[2.25, 4]} // 9:16 ratio
-        args={[2,2,2,2]} // 9:16 ratio
+        // args={[2,2,2,2]} // 9:16 ratio
 
         // wireframe={true}
-      />
-      <imageFadeMaterial
-        ref={ref}
-        tex={texture1}
-        tex2={texture2}
-        disp={dispTexture}
-        toneMapped={false}
-      />
-    </mesh>
-    </Center>
-    
+        />
+        <imageFadeMaterial
+          side={THREE.DoubleSide}
+          // side={THREE.FrontSide}
+          ref={ref}
+          tex={texture1}
+          tex2={texture2}
+          disp={dispTexture}
+          // toneMapped={false}
+        />
+      </mesh>
+    </group>
+    // </Center>
   );
 };
-
